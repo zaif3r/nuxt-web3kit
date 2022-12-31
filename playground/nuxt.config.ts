@@ -1,13 +1,11 @@
 import { defineNuxtConfig } from "nuxt/config";
-import MyModule from "..";
+import Web3Kit from "..";
 
 export default defineNuxtConfig({
-  modules: [MyModule],
-  myModule: {
-    addPlugin: true,
-  },
-  experimental: {
-    reactivityTransform: true,
-    viteNode: false,
+  modules: [Web3Kit],
+  web3kit: {
+    vagmi: {
+      autoConnect: true,
+    }
   },
 });
