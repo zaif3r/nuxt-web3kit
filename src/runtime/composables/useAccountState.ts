@@ -1,4 +1,5 @@
-import { useState } from "#app";
+import { useState, } from "#app";
+import { computed, } from "vue";
 import { useAccount as useVagmiAccount } from "vagmi";
 
 export const AccountStateKey = "web3kit.account" as const;
@@ -31,7 +32,7 @@ export function useAccountState() {
   }
 
   return {
-    account,
+    account: computed(() => account.value),
     setState,
   };
 }
