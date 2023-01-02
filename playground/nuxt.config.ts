@@ -8,4 +8,7 @@ export default defineNuxtConfig({
       autoConnect: true,
     }
   },
+  imports: {
+    autoImport: true,
+  },
 });

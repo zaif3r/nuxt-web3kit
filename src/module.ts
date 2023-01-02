@@ -1,8 +1,21 @@
 import { fileURLToPath } from "url";
-import { defineNuxtModule, addPlugin, createResolver } from "@nuxt/kit";
+import { defineNuxtModule, createResolver, addPlugin } from "@nuxt/kit";
+import { defu } from "defu";
+import { defaultChains, Chain } from "vagmi";
+import {
+  VagmiProvider,
+  VagmiConnector,
+  VagmiConfigureChainsOptions,
+} from "./runtime/plugins/vagmi";
 
 export interface ModuleOptions {
-  addPlugin: boolean;
+  vagmi: {
+    autoConnect?: boolean;
+    chains?: Chain[];
+    providers?: VagmiProvider[];
+    connectors?: VagmiConnector[];
+    config?: VagmiConfigureChainsOptions;
+  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -11,14 +24,27 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: "web3kit",
   },
   defaults: {
-    addPlugin: true,
+    vagmi: {
+      autoConnect: false,
+      chains: defaultChains,
+    },
   },
   setup(options, nuxt) {
-    if (options.addPlugin) {
-      const { resolve } = createResolver(import.meta.url);
-      const runtimeDir = fileURLToPath(new URL("./runtime", import.meta.url));
-      nuxt.options.build.transpile.push(runtimeDir);
-      addPlugin(resolve(runtimeDir, "plugin"));
-    }
+    // Public runtimeConfig
+    nuxt.options.runtimeConfig.public.web3kit = defu(
+      nuxt.options.runtimeConfig.public.web3kit,
+      {
+        vagmi: options.vagmi,
+      }
+    );
+
+    const { resolve } = createResolver(import.meta.url);
+    const runtimeDir = fileURLToPath(new URL("./runtime", import.meta.url));
+
+    addPlugin(resolve(runtimeDir, "plugins", "vagmi"));
+
+    nuxt.hook("imports:dirs", (dirs) => {
+      dirs.push(resolve(runtimeDir, "composables"));
+    });
   },
 });
