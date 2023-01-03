@@ -1,6 +1,4 @@
-import { useCookie } from "#app";
-
-export const ConnectionCookieKey = "web3kit.connection" as const;
+import { useCookie } from "#imports";
 
 export interface ConnectionCookie {
   isConnected: boolean;
