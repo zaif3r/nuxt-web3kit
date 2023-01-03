@@ -1,12 +1,7 @@
-import { useNetwork as useVagmiNetwork, useSwitchNetwork } from "vagmi";
+import {
+  useNetwork as useVagmiNetwork,
+  useSwitchNetwork as useVagmiSwitchNetwork,
+} from "vagmi";
 
-export function useNetwork() {
-  const { chain, chains } = useVagmiNetwork();
-  const { switchNetwork } = useSwitchNetwork();
-
-  return {
-    chain,
-    chains,
-    switchNetwork,
-  };
-}
+export const useNetwork = useVagmiNetwork;
+export const useSwitchNetwork = useVagmiSwitchNetwork;

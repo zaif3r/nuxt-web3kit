@@ -1,17 +1,9 @@
 import {
-  useSignMessage,
-  useSignTypedData,
   useSigner as useVagmiSigner,
+  useSignMessage as useVagmiSignMessage,
+  useSignTypedData as useVagmiSignTypedData,
 } from "vagmi";
 
-export function useSigner() {
-  const { data: signer } = useVagmiSigner();
-  const { signMessageAsync } = useSignMessage();
-  const { signTypedDataAsync } = useSignTypedData();
-
-  return {
-    signer,
-    signMessage: signMessageAsync,
-    signTypedData: signTypedDataAsync,
-  };
-}
+export const useSigner = useVagmiSigner;
+export const useSignMessage = useVagmiSignMessage;
+export const useSignTypedData = useVagmiSignTypedData;
