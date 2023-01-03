@@ -2,7 +2,7 @@ import { useRuntimeConfig } from "#app";
 import { useConnect as useVagmiConnect } from "vagmi";
 import { useConnectionCookie } from "./useConnectionCookie";
 
-export function useConnect(connectArgs: Parameters<typeof useVagmiConnect>[0]) {
+export function useConnect(connectArgs?: Parameters<typeof useVagmiConnect>[0]) {
   const { web3kit: { vagmi: config } } = useRuntimeConfig().public;
 
   const connectionCookie = useConnectionCookie();
