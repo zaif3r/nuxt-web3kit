@@ -6,7 +6,7 @@ import {
   VagmiProvider,
   VagmiConnector,
   VagmiConfigureChainsOptions,
-} from "./runtime/plugins/vagmi";
+} from "./runtime/types/vagmi";
 
 export interface ModuleOptions {
   vagmi: {

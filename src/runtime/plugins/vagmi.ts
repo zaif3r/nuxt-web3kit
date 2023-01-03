@@ -9,36 +9,10 @@ import { MetaMaskConnector } from "vagmi/connectors/metaMask";
 import { WalletConnectConnector } from "vagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "vagmi/connectors/coinbaseWallet";
 import { useVagmi } from "../composables/useVagmi";
-
-export type VagmiProvider = Exclude<
-  Parameters<
-    | typeof infuraProvider
-    | typeof alchemyProvider
-    | typeof jsonRpcProvider
-    | typeof publicProvider
-  >[0],
-  undefined
->;
-
-export type VagmiConnector = {
-  name?: "injected" | "metamask" | "walletConnect" | "coinbaseWallet";
-  options: Exclude<
-    ConstructorParameters<
-      | typeof InjectedConnector
-      | typeof MetaMaskConnector
-      | typeof WalletConnectConnector
-      | typeof CoinbaseWalletConnector
-    >[0],
-    undefined
-  >;
-};
-
-export type VagmiConfigureChainsOptions = Parameters<typeof configureChains>[2];
+import { VagmiConnector, VagmiProvider } from "../types/vagmi";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  const {
-    web3kit: { vagmi: config },
-  } = useRuntimeConfig().public;
+  const { web3kit: { vagmi: config } } = useRuntimeConfig().public;
 
   let providers, connectors;
 
