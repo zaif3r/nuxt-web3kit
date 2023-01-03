@@ -27,10 +27,6 @@ export function useAccount() {
       setState({
         address: vagmiAccount.address.value,
         isConnected: vagmiAccount.isConnected.value,
-        isConnecting: vagmiAccount.isConnecting.value,
-        isReconnecting: vagmiAccount.isReconnecting.value,
-        isDisconnected: vagmiAccount.isDisconnected.value,
-        status: vagmiAccount.status.value,
       });
     } else  if (status == "disconnected") {
       setState(null);

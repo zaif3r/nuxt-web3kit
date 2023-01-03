@@ -6,10 +6,6 @@ export const AccountStateKey = "web3kit.account" as const;
 export interface VagmiAccount {
   address?: string;
   isConnected?: boolean;
-  isConnecting?: boolean;
-  isReconnecting?: boolean;
-  isDisconnected?: boolean;
-  status?: string;
 }
 
 export function useAccountState() {
