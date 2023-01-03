@@ -1,5 +1,5 @@
 import { fileURLToPath } from "url";
-import { defineNuxtModule, createResolver, addPlugin } from "@nuxt/kit";
+import { defineNuxtModule, createResolver, addPlugin, addServerHandler } from "@nuxt/kit";
 import { defu } from "defu";
 import { defaultChains, Chain } from "vagmi";
 import {
@@ -7,6 +7,7 @@ import {
   VagmiConnector,
   VagmiConfigureChainsOptions,
 } from "./runtime/types/vagmi";
+import jwt from "jsonwebtoken";
 
 export interface ModuleOptions {
   vagmi: {
@@ -18,7 +19,17 @@ export interface ModuleOptions {
   };
   cookies?: {
     connection?: string;
-  }
+    signin?: string;
+  };
+  routes: {
+    signin?: string;
+    signout?: string;
+    protected?: string[];
+  };
+  jwt?: {
+    secret: string;
+    options?: jwt.SignOptions;
+  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -33,15 +44,33 @@ export default defineNuxtModule<ModuleOptions>({
     },
     cookies: {
       connection: "web3kit-connection",
+      signin: "web3kit-signin",
+    },
+    routes: {
+      signin: "/api/__web3kit/signin",
+      signout: "/api/__web3kit/signout",
+      protected: [],
+    },
+    jwt: {
+      secret: process.env.WEB3KIT_JWT_SECRET || "secret",
     },
   },
   setup(options, nuxt) {
     // Public runtimeConfig
-    nuxt.options.runtimeConfig.public.web3kit = defu(
+    const publicConfig = (nuxt.options.runtimeConfig.public.web3kit = defu(
       nuxt.options.runtimeConfig.public.web3kit,
       {
         vagmi: options.vagmi,
         cookies: options.cookies,
+        routes: options.routes,
+      }
+    ));
+
+    // Private runtimeConfig
+    nuxt.options.runtimeConfig.web3kit = defu(
+      nuxt.options.runtimeConfig.web3kit,
+      {
+        jwt: options.jwt,
       }
     );
 
@@ -51,6 +80,23 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolve(runtimeDir, "plugins", "vagmi"));
     addPlugin(resolve(runtimeDir, "plugins", "middleware"));
 
+    // Add server handlers
+    addServerHandler({
+      route: publicConfig.routes.signin,
+      handler: resolve(runtimeDir, "server", "api", "signin.post"),
+    })
+
+    addServerHandler({
+      route: publicConfig.routes.signout,
+      handler: resolve(runtimeDir, "server", "api", "signout"),
+    });
+
+    addServerHandler({
+      middleware: true,
+      handler: resolve(runtimeDir, "server", "middleware", "signedin"),
+    });
+
+    // Add runtime/composables to imports
     nuxt.hook("imports:dirs", (dirs) => {
       dirs.push(resolve(runtimeDir, "composables"));
     });
