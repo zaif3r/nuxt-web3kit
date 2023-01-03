@@ -49,6 +49,7 @@ export default defineNuxtModule<ModuleOptions>({
     const runtimeDir = fileURLToPath(new URL("./runtime", import.meta.url));
 
     addPlugin(resolve(runtimeDir, "plugins", "vagmi"));
+    addPlugin(resolve(runtimeDir, "plugins", "middleware"));
 
     nuxt.hook("imports:dirs", (dirs) => {
       dirs.push(resolve(runtimeDir, "composables"));
