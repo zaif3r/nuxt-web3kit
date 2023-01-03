@@ -1,10 +1,12 @@
 import { useRuntimeConfig } from "#imports";
-import { defineEventHandler, readBody, createError, getCookie, setCookie } from "h3";
+import { defineEventHandler, assertMethod, readBody, createError, getCookie, setCookie } from "h3";
 import { SigninBody, SigninPayload } from "../../types/signin";
 import jwt from "jsonwebtoken";
 import { utils } from "ethers";
 
 export default defineEventHandler(async (event) => {
+  assertMethod(event, "POST");
+  
   const { web3kit: { cookies } } = useRuntimeConfig().public;
 
   const connectionCookie = getCookie(event, cookies.connection);

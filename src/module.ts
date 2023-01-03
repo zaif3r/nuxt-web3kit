@@ -80,15 +80,17 @@ export default defineNuxtModule<ModuleOptions>({
     addPlugin(resolve(runtimeDir, "plugins", "vagmi"));
     addPlugin(resolve(runtimeDir, "plugins", "middleware"));
 
-    // Add server handlers
+    // Add server api
+    const serverAPI = resolve(runtimeDir, "server", "api");
+
     addServerHandler({
       route: publicConfig.routes.signin,
-      handler: resolve(runtimeDir, "server", "api", "signin.post"),
+      handler: resolve(serverAPI, "signin"),
     })
 
     addServerHandler({
       route: publicConfig.routes.signout,
-      handler: resolve(runtimeDir, "server", "api", "signout"),
+      handler: resolve(serverAPI, "signout"),
     });
 
     addServerHandler({
