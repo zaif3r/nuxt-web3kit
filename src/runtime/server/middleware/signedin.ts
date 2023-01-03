@@ -6,7 +6,9 @@ export default defineEventHandler(async (event) => {
 
   const signinCookie = getCookie(event, cookies.signin);
 
-  const protectedRoute = routes.protected.includes(event.path);
+  const protectedRoute =
+    routes.protected.includes(event.path) ||
+    routes.protected.some((route: string) => event.path?.startsWith(route));
 
   if (protectedRoute && !signinCookie) {
     return createError({
