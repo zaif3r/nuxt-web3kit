@@ -7,7 +7,9 @@ export interface ConnectionCookie {
 }
 
 export function useConnectionCookie() {
-  const connectionCookie = useCookie<ConnectionCookie>(ConnectionCookieKey, {
+  const { web3kit: { cookies } } = useRuntimeConfig().public;
+
+  const connectionCookie = useCookie<ConnectionCookie>(cookies.connection, {
     default: () => ({
       isConnected: false,
     }),

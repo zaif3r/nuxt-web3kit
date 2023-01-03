@@ -16,6 +16,9 @@ export interface ModuleOptions {
     connectors?: VagmiConnector[];
     config?: VagmiConfigureChainsOptions;
   };
+  cookies?: {
+    connection?: string;
+  }
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -28,6 +31,9 @@ export default defineNuxtModule<ModuleOptions>({
       autoConnect: false,
       chains: defaultChains,
     },
+    cookies: {
+      connection: "web3kit-connection",
+    },
   },
   setup(options, nuxt) {
     // Public runtimeConfig
@@ -35,6 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt.options.runtimeConfig.public.web3kit,
       {
         vagmi: options.vagmi,
+        cookies: options.cookies,
       }
     );
 
