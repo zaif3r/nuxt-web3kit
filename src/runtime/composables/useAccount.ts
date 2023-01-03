@@ -2,13 +2,12 @@ import { useRuntimeConfig } from "#app";
 import { computed } from "vue";
 import { useAccountState } from "./useAccountState";
 import { useConnectionCookie } from "./useConnectionCookie";
+import { useAccount as useVagmiAccount } from "vagmi";
 
 export function useAccount() {
-  const {
-    web3kit: { vagmi },
-  } = useRuntimeConfig().public;
+  const { web3kit: { vagmi } } = useRuntimeConfig().public;
 
-  const { account } = useAccountState();
+  const { account, setState } = useAccountState();
   const connectionCookie = useConnectionCookie();
 
   const isConnected = computed<boolean>(() => {
@@ -19,6 +18,26 @@ export function useAccount() {
       );
     }
     return account.value?.isConnected ?? false;
+  });
+
+  const vagmiAccount = useVagmiAccount();
+
+  watch(vagmiAccount.status, (status) => {
+    if (status == "connected") {
+      setState({
+        address: vagmiAccount.address.value,
+        isConnected: vagmiAccount.isConnected.value,
+        isConnecting: vagmiAccount.isConnecting.value,
+        isReconnecting: vagmiAccount.isReconnecting.value,
+        isDisconnected: vagmiAccount.isDisconnected.value,
+        status: vagmiAccount.status.value,
+      });
+    } else  if (status == "disconnected") {
+      setState(null);
+      connectionCookie.value = {
+        isConnected: false,
+      };
+    }
   });
 
   return {

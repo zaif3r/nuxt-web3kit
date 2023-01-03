@@ -1,6 +1,5 @@
-import { useState, } from "#app";
-import { computed, } from "vue";
-import { useAccount as useVagmiAccount } from "vagmi";
+import { useState } from "#app";
+import { computed } from "vue";
 
 export const AccountStateKey = "web3kit.account" as const;
 
@@ -16,19 +15,12 @@ export interface VagmiAccount {
 export function useAccountState() {
   const account = useState<VagmiAccount | null>(AccountStateKey, () => null);
 
-  function setState(vagmiAccount: ReturnType<typeof useVagmiAccount> | null) {
+  function setState(vagmiAccount: VagmiAccount | null) {
     if (!vagmiAccount) {
       return (account.value = null);
     }
 
-    account.value = {
-      address: vagmiAccount.address.value,
-      isConnected: vagmiAccount.isConnected.value,
-      isConnecting: vagmiAccount.isConnecting.value,
-      isReconnecting: vagmiAccount.isReconnecting.value,
-      isDisconnected: vagmiAccount.isDisconnected.value,
-      status: vagmiAccount.status.value,
-    };
+    account.value = vagmiAccount;
   }
 
   return {
