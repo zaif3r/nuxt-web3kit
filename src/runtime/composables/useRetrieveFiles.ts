@@ -1,4 +1,4 @@
-import { Ref, ComputedRef } from "vue";
+import { Ref, ComputedRef, computed, isRef } from "vue";
 
 export function useRetrieveFiles(
   cid: string | Ref<string | undefined> | ComputedRef<string | undefined>
