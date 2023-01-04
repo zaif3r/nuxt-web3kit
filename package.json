@@ -1,6 +1,8 @@
 {
   "name": "@zaifer/nuxt-web3kit",
   "version": "0.1.0",
+  "author": "zaifer",
+  "description": "Nuxt Web3Kit module: composables and server API",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -14,6 +16,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zaif3r/nuxt-web3kit.git"
+  },
   "scripts": {
     "prepack": "nuxt-module-build --stub && nuxi prepare playground",
     "dev": "nuxi dev playground",
@@ -38,5 +44,8 @@
   },
   "resolutions": {
     "vue-query": "2.0.0-beta.12"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
