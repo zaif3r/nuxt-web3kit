@@ -36,6 +36,13 @@ export function useAccount() {
     }
   });
 
+  const formattedAddress = computed(() => {
+    if (account.value?.address) {
+      return account.value.address.slice(0, 6) + "..." + account.value.address.slice(-4);
+    }
+    return "";
+  });
+
   return {
     account: computed(() => account.value ?? {}),
     isConnected,
