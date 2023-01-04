@@ -119,5 +119,22 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.hook("imports:dirs", (dirs) => {
       dirs.push(resolve(runtimeDir, "composables"));
     });
+
+    // Optimize deps
+    if (!nuxt.options.vite.optimizeDeps) {
+      nuxt.options.vite.optimizeDeps = {
+        include: [],
+      };
+    }
+    if (!nuxt.options.vite.optimizeDeps.include) {
+      nuxt.options.vite.optimizeDeps.include = [];
+    }
+    nuxt.options.vite.optimizeDeps.include.push(
+      "ethers",
+      "ethers/lib/utils",
+      '@wagmi/core', 
+      "remove-accents",
+      "eventemitter3",
+    );
   },
 });
