@@ -17,7 +17,7 @@ export default function () {
   }
 
   return {
-    data: connection,
+    ...fetchSignout,
     signout,
   };
 }
