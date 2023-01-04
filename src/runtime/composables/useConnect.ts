@@ -1,4 +1,4 @@
-import { useRuntimeConfig } from "#app";
+import { useRuntimeConfig } from "#imports";
 import { useConnect as useVagmiConnect } from "vagmi";
 import { useConnectionCookie } from "./useConnectionCookie";
 

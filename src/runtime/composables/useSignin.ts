@@ -1,4 +1,4 @@
-import { useFetch, useRuntimeConfig } from "#app";
+import { useFetch, useRuntimeConfig } from "#imports";
 import { ref, toRaw } from "vue";
 import { defu } from "defu";
 import { useSignTypedData } from "vagmi";

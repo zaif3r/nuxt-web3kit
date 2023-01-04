@@ -1,4 +1,4 @@
-import { useState } from "#app";
+import { useState } from "#imports";
 import { computed } from "vue";
 
 export const AccountStateKey = "web3kit.account" as const;

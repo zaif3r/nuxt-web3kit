@@ -1,4 +1,4 @@
-import { useFetch, useRuntimeConfig } from "#app";
+import { useFetch, useRuntimeConfig } from "#imports";
 import { useDisconnect } from "vagmi";
 
 export default function () {

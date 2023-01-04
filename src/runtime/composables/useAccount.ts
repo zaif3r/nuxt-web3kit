@@ -1,5 +1,5 @@
-import { useRuntimeConfig } from "#app";
-import { computed } from "vue";
+import { useRuntimeConfig } from "#imports";
+import { computed, watch } from "vue";
 import { useAccountState } from "./useAccountState";
 import { useConnectionCookie } from "./useConnectionCookie";
 import { useAccount as useVagmiAccount } from "vagmi";

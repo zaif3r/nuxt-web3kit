@@ -1,4 +1,4 @@
-import { useNuxtApp } from "#app";
+import { useNuxtApp } from "#imports";
 import { Chain, ChainProviderFn, Client, Connector } from "vagmi";
 
 interface VagmiState {
