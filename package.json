@@ -1,6 +1,6 @@
 {
   "name": "@zaifer/nuxt-web3kit",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "zaifer",
   "description": "Nuxt Web3Kit module: composables and server API",
   "license": "MIT",
