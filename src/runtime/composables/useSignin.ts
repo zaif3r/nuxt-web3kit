@@ -12,7 +12,7 @@ export function useSignin(
 ) {
   const { web3kit: { routes } } = useRuntimeConfig().public;
 
-  const { account } = useAccount();
+  const account = useAccount();
   const connection = useConnect(connectArgs);
   const signer = useSignTypedData(signArgs);
 

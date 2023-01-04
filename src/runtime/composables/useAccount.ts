@@ -43,8 +43,9 @@ export function useAccount() {
     return "";
   });
 
-  return {
-    account: computed(() => account.value ?? {}),
-    isConnected,
-  };
+  return computed(() => ({
+    address: account.value?.address,
+    formattedAddress: formattedAddress.value,
+    isConnected: isConnected.value,
+  }));
 }
