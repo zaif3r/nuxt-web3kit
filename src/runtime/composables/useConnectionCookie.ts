@@ -1,4 +1,4 @@
-import { useCookie } from "#imports";
+import { useCookie, useRuntimeConfig } from "#imports";
 
 export interface ConnectionCookie {
   isConnected: boolean;
