@@ -4,7 +4,7 @@ import { useConnectionCookie } from "../composables/useConnectionCookie";
 export default defineNuxtRouteMiddleware(() => {
   const connectionCookie = useConnectionCookie();
 
-  if (!connectionCookie.value.isConnected) {
+  if (!connectionCookie.value?.isConnected) {
     return navigateTo("/");
   }
 });
