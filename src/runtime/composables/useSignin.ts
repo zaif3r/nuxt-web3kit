@@ -1,10 +1,10 @@
-import { useFetch, useRuntimeConfig } from "#imports";
+import { useAsyncData, useRuntimeConfig } from "#imports";
 import { ref, toRaw } from "vue";
 import { defu } from "defu";
 import { useSignTypedData } from "vagmi";
 import { useConnect } from "./useConnect";
 import { useAccount } from "./useAccount";
-import { SigninBody, SigninArgs, SigninPayload } from "../types/signin";
+import { SigninBody, SigninTypedData, SigninPayload } from "../types/signin";
 
 export function useSignin(
   signArgs?: Parameters<typeof useSignTypedData>[0],
@@ -16,47 +16,41 @@ export function useSignin(
   const connection = useConnect(connectArgs);
   const signer = useSignTypedData(signArgs);
 
-  const error = ref<string | null>(null);
-  const pending = ref<boolean>(false);
   const signinBody = ref<SigninBody | null>(null);
 
-  const fetchSignin = useFetch(routes.signin, {
-    method: "POST",
-    body: toRaw(signinBody),
-    watch: [signinBody],
+  const signinData = useAsyncData(async () => {
+    if (!connection.isConnected.value) {
+      await connection.connectAsync.value();
+    }
+
+    await signer.signTypedDataAsync(signinBody.value?.typedData);
+
+    await $fetch(routes.signin,  {
+      method: "POST",
+      body: toRaw({
+        ...signinBody.value,
+        signature: signer.data.value!!,
+      }),
+    });
+  }, {
+    lazy: true,
     immediate: false,
   });
 
-  async function signin(signArgs: SigninArgs, payload?: SigninPayload) {
-    pending.value = true;
-
-    try {
-      if (!connection.isConnected.value || !account.value.address) {
-        await connection.connectAsync.value();
-      }
-
-      await signer.signTypedDataAsync(signArgs);
-
-      signinBody.value = {
-        typedData: signArgs,
-        signer: account.value.address!!,
-        signature: signer.data.value!!,
-        payload: defu(payload || {}, {
-          address: account.value.address,
-        }),
-      };
-
-      await fetchSignin.execute();
-    } catch (err: any) {
-      error.value = err.message;
-    }
-
-    pending.value = false;
+  async function signin(typedData: SigninTypedData, payload?: SigninPayload) {
+    signinBody.value = {
+      typedData,
+      signer: account.value.address as string,
+      signature: signer.data.value as string,
+      payload: defu(payload || {}, {
+        address: account.value.address,
+      }),
+    };
+    await signinData.execute();
   }
 
   return {
-    error,
-    pending,
+    ...signinData,
     signin,
   };
 }

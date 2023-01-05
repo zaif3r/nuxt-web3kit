@@ -1,4 +1,4 @@
-import { useFetch, useRuntimeConfig } from "#imports";
+import { useAsyncData, useRuntimeConfig } from "#imports";
 import { useDisconnect } from "vagmi";
 
 export default function () {
@@ -6,18 +6,21 @@ export default function () {
 
   const connection = useDisconnect();
 
-  const fetchSignout = useFetch(routes.signout, {
+  const signoutData = useAsyncData(async () => {
+    await $fetch(routes.signout);
+
+    await connection.disconnectAsync()
+  }, {
+    lazy: true,
     immediate: false,
   });
 
   async function signout() {
-    await fetchSignout.execute();
-
-    await connection.disconnectAsync()
+    await signoutData.execute();
   }
 
   return {
-    ...fetchSignout,
+    ...signoutData,
     signout,
   };
 }

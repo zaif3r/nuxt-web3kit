@@ -1,6 +1,6 @@
 import { useSignTypedData } from "vagmi";
 
-export type SigninArgs = Exclude<
+export type SigninTypedData = Exclude<
   Parameters<ReturnType<typeof useSignTypedData>["signTypedDataAsync"]>[0],
   undefined
 >;
@@ -8,7 +8,7 @@ export type SigninArgs = Exclude<
 export interface SigninBody {
   signer: string;
   signature: string;
-  typedData: SigninArgs;
+  typedData: SigninTypedData;
   payload: SigninPayload;
 }
 
