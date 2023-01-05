@@ -32,23 +32,30 @@ export default defineNuxtPlugin((nuxtApp) => {
     providers = [publicProvider()];
   }
 
+  const chainsConfig = config.chains || defaultChains;
+
   if (config.connectors) {
     connectors = config.connectors.map((connector: VagmiConnector) => {
+      const connectorOptions = {
+        chains: chainsConfig,
+        options: connector.options
+      }
+
       if (connector.name === "metamask") {
-        return new MetaMaskConnector(connector.options as any);
+        return new MetaMaskConnector(connectorOptions as any);
       } else if (connector.name === "walletConnect") {
-        return new WalletConnectConnector(connector.options as any);
+        return new WalletConnectConnector(connectorOptions as any);
       } else if (connector.name === "coinbaseWallet") {
-        return new CoinbaseWalletConnector(connector.options as any);
+        return new CoinbaseWalletConnector(connectorOptions as any);
       } else {
-        return new InjectedConnector(connector.options as any);
+        return new InjectedConnector(connectorOptions as any);
       }
     });
   } else {
-    connectors = [new InjectedConnector()];
+    connectors = [new InjectedConnector({
+      chains: chainsConfig,
+    })];
   }
-
-  const chainsConfig = config.chains || defaultChains;
 
   const { chains, provider, webSocketProvider } = configureChains(
     chainsConfig,

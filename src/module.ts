@@ -1,7 +1,7 @@
 import { fileURLToPath } from "url";
 import { defineNuxtModule, createResolver, addPlugin, addServerHandler } from "@nuxt/kit";
 import { defu } from "defu";
-import { Chain } from "vagmi";
+import { Chain, defaultChains } from "vagmi";
 import {
   VagmiProvider,
   VagmiConnector,
@@ -44,6 +44,7 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     vagmi: {
       autoConnect: false,
+      chains: defaultChains,
     },
     cookies: {
       connection: "web3kit-connection",
