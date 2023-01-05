@@ -1,7 +1,7 @@
 import { useContract } from "./useContract";
 import { erc20ABI } from "vagmi";
 
-export function useERC721({
+export function useERC20({
   address,
   signerOptions,
 }: Parameters<typeof useContract>[0]) {
