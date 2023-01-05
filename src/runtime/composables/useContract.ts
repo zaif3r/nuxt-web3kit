@@ -1,6 +1,6 @@
 import { Contract, ContractInterface } from "ethers";
 import { useSigner } from "vagmi";
-import { Ref, ComputedRef, ref, computed, toRaw, isRef } from "vue";
+import { Ref, ComputedRef, ref, computed, toRaw, isRef, watch } from "vue";
 
 export interface UseContractOptions {
   address: string | Ref<string | undefined> | ComputedRef<string | undefined>;
@@ -18,18 +18,12 @@ export function useContract({ address, abi, signerOptions }: UseContractOptions)
     return address;
   })
 
-  const signer = useSigner({
-    ...signerOptions,
-    onSuccess: (result) => {
-      if (signer.data.value && contractAddress.value) {
-        contract.value = new Contract(contractAddress.value, abi, toRaw(signer.data.value));
-      }
-      if (isRef(signerOptions?.onSuccess)) {
-        signerOptions?.onSuccess.value?.(result);
-      } else {
-        signerOptions?.onSuccess?.(result);
-      }
-    },
+  const signer = useSigner(signerOptions);
+
+  watch(signer.data, () => {
+    if (signer.data.value && contractAddress.value) {
+      contract.value = new Contract(contractAddress.value, abi, toRaw(signer.data.value));
+    }
   });
 
   return {
