@@ -1,5 +1,5 @@
 import { defineNuxtPlugin, useRuntimeConfig } from "#app";
-import { configureChains, createClient, VagmiPlugin } from "vagmi";
+import { configureChains, createClient, VagmiPlugin, defaultChains } from "vagmi";
 import { infuraProvider } from "vagmi/providers/infura";
 import { alchemyProvider } from "vagmi/providers/alchemy";
 import { jsonRpcProvider } from "vagmi/providers/jsonRpc";
@@ -48,8 +48,10 @@ export default defineNuxtPlugin((nuxtApp) => {
     connectors = [new InjectedConnector()];
   }
 
+  const chainsConfig = config.chains || defaultChains;
+
   const { chains, provider, webSocketProvider } = configureChains(
-    config.chains,
+    chainsConfig,
     providers,
     config.config
   );
