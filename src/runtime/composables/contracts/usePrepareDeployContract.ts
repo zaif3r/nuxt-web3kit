@@ -1,7 +1,7 @@
 import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
 import { ContractFactory } from "ethers";
 import { get } from "@vueuse/core";
-import { toRaw } from "vue";
+import { toRaw, computed } from "vue";
 import { useAsyncQuery } from "#imports";
 
 import type {
