@@ -47,11 +47,11 @@ export default defineNuxtPlugin(async () => {
 function getProviders(config: WagmiConfig) {
   if (config.providers) {
     const configProviders = config.providers.map((provider) => {
-      if (provider.name === "infura") {
+      if (provider.key === "infura") {
         return infuraProvider(provider as any);
-      } else if (provider.name == "alchemy") {
+      } else if (provider.key == "alchemy") {
         return alchemyProvider(provider as any);
-      } else if (provider.name == "jsonRpc") {
+      } else if (provider.key == "jsonRpc") {
         return jsonRpcProvider(provider as any);
       } else {
         return publicProvider(provider as any);
@@ -83,11 +83,11 @@ function getConnectors(
         options: connector,
       } as any;
 
-      if (connector.name === "metamask") {
+      if (connector.key === "metamask") {
         return new MetaMaskConnector(connectorOptions);
-      } else if (connector.name === "walletConnect") {
+      } else if (connector.key === "walletConnect") {
         return new WalletConnectConnector(connectorOptions);
-      } else if (connector.name === "coinbaseWallet") {
+      } else if (connector.key === "coinbaseWallet") {
         return new CoinbaseWalletConnector(connectorOptions);
       } else {
         return new InjectedConnector(connectorOptions);
