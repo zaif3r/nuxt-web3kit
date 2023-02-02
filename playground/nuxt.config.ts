@@ -38,19 +38,12 @@ export default defineNuxtConfig({
         key: "jsonRpc",
         weight: 2,
         priority: 0,
-        rpc: (chain: any) => {
-          if (chain.id == mainnet.id) {
-            return {
-              http: "https://eth.llamarpc.com",
-            };
-          }
-          if (chain.id == polygon.id) {
-            return {
-              http: "https://polygon.llamarpc.com",
-            };
-          }
-          return null;
+        [mainnet.id]: {
+          http: "https://eth.llamarpc.com",
         },
+        [polygon.id]: {
+          http: "https://polygon-rpc.com",
+        }
       },
     ],
     connectors: [
