@@ -20,7 +20,9 @@ export type Provider<T extends ProviderKey = ProviderKey> = (T extends "infura"
   : T extends "alchemy"
   ? AlchemyProviderConfig
   : T extends "jsonRpc"
-  ? JsonRpcProviderConfig
+  ? Omit<JsonRpcProviderConfig, "rpc"> & {
+      [chainId: number]: ReturnType<JsonRpcProviderConfig["rpc"]>;
+    }
   : T extends "public"
   ? PublicProviderConfig
   : never) & {

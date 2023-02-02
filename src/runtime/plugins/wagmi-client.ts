@@ -52,7 +52,10 @@ function getProviders(config: WagmiConfig) {
       } else if (provider.key == "alchemy") {
         return alchemyProvider(provider as any);
       } else if (provider.key == "jsonRpc") {
-        return jsonRpcProvider(provider as any);
+        return jsonRpcProvider({
+          ...provider,
+          rpc: (chain) => (provider as any)[chain.id] as any,
+        });
       } else {
         return publicProvider(provider as any);
       }
