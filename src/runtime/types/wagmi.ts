@@ -29,9 +29,9 @@ export type Provider<T extends ProviderKey = ProviderKey> = (T extends "infura"
 
 export type Connector<T extends ConnectorKey = ConnectorKey> =
   (T extends "injected"
-    ? ConstructorParameters<typeof InjectedConnector>[0]["options"]
+    ? NonNullable<ConstructorParameters<typeof InjectedConnector>[0]>["options"]
     : T extends "metamask"
-    ? ConstructorParameters<typeof MetaMaskConnector>[0]["options"]
+    ? NonNullable<ConstructorParameters<typeof MetaMaskConnector>[0]>["options"]
     : T extends "walletConnect"
     ? ConstructorParameters<typeof WalletConnectConnector>[0]["options"]
     : T extends "coinbaseWallet"
