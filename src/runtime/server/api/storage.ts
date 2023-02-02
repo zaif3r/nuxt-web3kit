@@ -8,7 +8,10 @@ import {
 } from "h3";
 import { Web3Storage } from "web3.storage";
 
-import type { StorageArgs, StorageResult } from "../../types/storage";
+import type {
+  StorageServerArgs,
+  StorageServerResult,
+} from "../../types/storage";
 
 export default defineEventHandler(async (event) => {
   assertMethod(event, "POST");
@@ -24,7 +27,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const body = await readBody<StorageArgs>(event);
+  const body = await readBody<StorageServerArgs>(event);
   if (!body.files || body.files.length == 0) {
     return createError({
       statusCode: 400,
@@ -61,5 +64,5 @@ export default defineEventHandler(async (event) => {
   }
 
   const cid = await storage.put(files, body.options);
-  return <StorageResult>{ cid };
+  return <StorageServerResult>{ cid };
 });
