@@ -41,9 +41,10 @@ export function usePrepareDeployContract(
         throw new Error("Signer not available");
       }
 
-      const factory = new ContractFactory(abi, bytecode, toRaw(signer.value));
+      const signerRaw = toRaw(signer.value);
+      const factory = new ContractFactory(abi, bytecode, signerRaw);
 
-      const request = await signer.value.populateTransaction(
+      const request = await signerRaw.populateTransaction(
         factory.getDeployTransaction(...args)
       );
 
