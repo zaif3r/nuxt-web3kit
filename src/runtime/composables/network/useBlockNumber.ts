@@ -1,6 +1,6 @@
 import type { QueryArgs } from "@zaifer/nuxt-query";
 import type { FetchBlockNumberArgs } from "@wagmi/core";
-import { computed, toRaw, watch, shallowRef } from "vue";
+import { computed, ref, toRaw, watch, shallowRef, isRef } from "vue";
 import { get, tryOnScopeDispose } from "@vueuse/core";
 import { watchBlockNumber } from "@wagmi/core";
 
