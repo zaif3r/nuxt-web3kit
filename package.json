@@ -1,6 +1,6 @@
 {
   "name": "@zaifer/nuxt-web3kit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "zaifer",
   "description": "Nuxt Web3Kit module: web+ composables",
   "repository": {
