@@ -1,5 +1,5 @@
 import type { FetchBalanceArgs, FetchBalanceResult } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { useAsyncQuery } from "#imports";
 import { fetchBalance } from "@wagmi/core";
 
@@ -10,7 +10,10 @@ export type UseBalanceOptions = QueryOptions<
   FetchBalanceResult
 >;
 
-export function useBalance(args?: UseBalanceArgs, options?: UseBalanceOptions) {
+export function useBalance(
+  args?: UseBalanceArgs,
+  options?: UseBalanceOptions
+): UseAsyncQueryResult<FetchBalanceArgs, FetchBalanceResult> {
   return useAsyncQuery({
     key: "useBalance",
     asyncFn: fetchBalance,

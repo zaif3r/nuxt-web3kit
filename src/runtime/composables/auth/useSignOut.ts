@@ -1,4 +1,4 @@
-import type { QueryOptions } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult } from "@zaifer/nuxt-query";
 import { useRuntimeConfig, useAsyncQuery } from "#imports";
 import { disconnect } from "@wagmi/core";
 
@@ -7,7 +7,7 @@ import { useClientStore } from "../../store/client";
 
 export type UseSignOutOptions = QueryOptions<{}, string>;
 
-export function useSignOut(options?: UseSignOutOptions) {
+export function useSignOut(options?: UseSignOutOptions): UseAsyncQueryResult<{}, string> {
   const { routes } = useRuntimeConfig().public.web3kit;
 
   const clientStore = useClientStore();

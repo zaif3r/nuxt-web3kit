@@ -1,4 +1,4 @@
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import type { ReadContractConfig, ReadContractResult } from "@wagmi/core";
 import type { Abi } from "abitype";
 import { readContract } from "@wagmi/core";
@@ -20,7 +20,7 @@ export function useReadContract<
 >(
   args?: UseReadContractArgs<TAbi, Fn>,
   options?: UseReadContractOptions<TAbi, Fn>
-) {
+): UseAsyncQueryResult<ReadContractConfig<TAbi, Fn>, ReadContractResult<TAbi, Fn>> {
   return useAsyncQuery({
     key: "useReadContract",
     asyncFn: readContract,

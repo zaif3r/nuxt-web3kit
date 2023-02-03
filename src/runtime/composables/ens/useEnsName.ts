@@ -1,5 +1,5 @@
 import type { FetchEnsNameArgs, FetchEnsNameResult } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { fetchEnsName } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
 
@@ -10,7 +10,10 @@ export type UseEnsNameOptions = QueryOptions<
   FetchEnsNameResult
 >;
 
-export function useEnsName(args?: UseEnsNameArgs, options?: UseEnsNameOptions) {
+export function useEnsName(
+  args?: UseEnsNameArgs,
+  options?: UseEnsNameOptions,
+): UseAsyncQueryResult<FetchEnsNameArgs, FetchEnsNameResult> {
   return useAsyncQuery({
     key: "useEnsName",
     asyncFn: fetchEnsName,

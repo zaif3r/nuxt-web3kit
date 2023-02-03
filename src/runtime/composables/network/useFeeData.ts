@@ -1,4 +1,4 @@
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import type { FetchFeeDataArgs, FetchFeeDataResult } from "@wagmi/core";
 import { fetchFeeData } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
@@ -10,7 +10,10 @@ export type UseFeeDataOptions = QueryOptions<
   FetchFeeDataResult
 >;
 
-export function useFeeData(args?: UseFeeDataArgs, options?: UseFeeDataOptions) {
+export function useFeeData(
+  args?: UseFeeDataArgs,
+  options?: UseFeeDataOptions
+): UseAsyncQueryResult<FetchFeeDataArgs, FetchFeeDataResult> {
   return useAsyncQuery({
     key: "useFeeData",
     asyncFn: fetchFeeData,

@@ -1,8 +1,8 @@
 import type { SwitchNetworkArgs, SwitchNetworkResult } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { switchNetwork } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
-import { computed } from "vue";
+import { ComputedRef, computed } from "vue";
 
 export type UsePrepareSwitchNetworkArgs = UseQueryArgs<SwitchNetworkArgs>;
 
@@ -11,10 +11,17 @@ export type UseSwitchNetworkOptions = QueryOptions<
   SwitchNetworkResult
 >;
 
+export type UseSwitchNetworkResult = UseAsyncQueryResult<
+  SwitchNetworkArgs,
+  SwitchNetworkResult
+> & {
+  pendingChainId: ComputedRef<number | undefined>;
+};
+
 export function useSwitchNetwork(
   args?: UsePrepareSwitchNetworkArgs,
   options?: UseSwitchNetworkOptions
-) {
+): UseSwitchNetworkResult {
   const query = useAsyncQuery<SwitchNetworkArgs, SwitchNetworkResult>({
     key: "useSwitchNetwork",
     asyncFn: async ({ chainId: chain }) => {

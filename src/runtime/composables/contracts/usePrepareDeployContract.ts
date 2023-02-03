@@ -1,4 +1,4 @@
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { ContractFactory } from "ethers";
 import { get } from "@vueuse/core";
 import { toRaw, computed } from "vue";
@@ -20,7 +20,7 @@ export type UsePrepareDeployContractOptions = QueryOptions<
 export function usePrepareDeployContract(
   args?: UsePrepareDeployContractArgs,
   options?: UsePrepareDeployContractOptions
-) {
+): UseAsyncQueryResult<DeployContractArgs, PrepareDeployContractResult> {
   const signerArgs = computed(() => ({
     chainId: get(get(args)?.chainId),
   }));

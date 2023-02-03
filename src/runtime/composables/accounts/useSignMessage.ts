@@ -1,5 +1,5 @@
 import type { SignMessageArgs, SignMessageResult } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { signMessage } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
 
@@ -13,7 +13,7 @@ export type UseSignMessageOptions = QueryOptions<
 export function useSignMessage(
   args?: UseSignMessageArgs,
   options?: UseSignMessageOptions
-) {
+): UseAsyncQueryResult<SignMessageArgs, SignMessageResult> {
   return useAsyncQuery({
     key: "useSignMessage",
     asyncFn: signMessage,

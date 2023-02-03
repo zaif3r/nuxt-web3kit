@@ -1,5 +1,5 @@
 import type { ConnectArgs, SignMessageArgs } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { connect, disconnect, signMessage } from "@wagmi/core";
 import { useRuntimeConfig, useAsyncQuery } from "#imports";
 import { storeToRefs } from "pinia";
@@ -20,7 +20,7 @@ export type UseSignInWithMessageOptions = QueryOptions<
 export function useSignInWithMessage(
   args?: UseSignInWithMessageArgs,
   options?: UseSignInWithMessageOptions
-) {
+): UseAsyncQueryResult<ConnectArgs & SignMessageArgs, SignInResult> {
   const { routes } = useRuntimeConfig().public.web3kit;
   const { address, status } = storeToRefs(useAccountStore());
 

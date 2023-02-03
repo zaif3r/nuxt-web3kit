@@ -1,5 +1,5 @@
 import type { SignTypedDataArgs, SignTypedDataResult } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { signTypedData } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
 
@@ -13,7 +13,7 @@ export type UseSignTypedDataOptions = QueryOptions<
 export function useSignTypedData(
   args?: UseSignTypedDataArgs,
   options?: UseSignTypedDataOptions
-) {
+): UseAsyncQueryResult<SignTypedDataArgs, SignTypedDataResult> {
   return useAsyncQuery({
     key: "useSignTypedData",
     asyncFn: signTypedData,

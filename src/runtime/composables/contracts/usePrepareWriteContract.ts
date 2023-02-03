@@ -2,7 +2,7 @@ import type {
   PrepareWriteContractConfig,
   PrepareWriteContractResult,
 } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { prepareWriteContract } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
 
@@ -17,7 +17,7 @@ export type UsePrepareWriteContractOptions = QueryOptions<
 export function usePrepareWriteContract(
   args?: UsePrepareWriteContractArgs,
   options?: UsePrepareWriteContractOptions
-) {
+): UseAsyncQueryResult<PrepareWriteContractConfig, PrepareWriteContractResult> {
   return useAsyncQuery({
     key: "usePrepareWriteContract",
     asyncFn: prepareWriteContract,

@@ -1,5 +1,6 @@
-import type { ConnectArgs, ConnectResult } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { ConnectArgs, Connector, ConnectResult } from "@wagmi/core";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { ComputedRef } from "vue";
 import { useAsyncQuery } from "#imports";
 import { connect } from "@wagmi/core";
 import { storeToRefs } from "pinia";
@@ -13,7 +14,14 @@ export type UseConnectArgs = UseQueryArgs<ConnectArgs>;
 
 export type UseConnectOptions = QueryOptions<ConnectArgs, ConnectResult | true>;
 
-export function useConnect(args?: UseConnectArgs, options?: UseConnectOptions) {
+export type UseConnectResult = UseAsyncQueryResult<ConnectArgs, ConnectResult | true> & {
+  pendingConnector: ComputedRef<Connector | undefined>;
+}
+
+export function useConnect(
+  args?: UseConnectArgs,
+  options?: UseConnectOptions
+): UseConnectResult {
   const { status } = storeToRefs(useAccountStore());
   const activeConnector = useConnector();
 

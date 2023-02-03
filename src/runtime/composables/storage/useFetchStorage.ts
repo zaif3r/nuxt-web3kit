@@ -1,4 +1,4 @@
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { useAsyncQuery } from "#imports";
 
 import type { FetchStorageArgs, FetchStorageResult } from "../../types/storage";
@@ -6,14 +6,14 @@ import type { FetchStorageArgs, FetchStorageResult } from "../../types/storage";
 export type UseFetchStorageArgs = UseQueryArgs<FetchStorageArgs>;
 
 export type UseFetchStorageOptions<T> = QueryOptions<
-  UseFetchStorageArgs,
+  FetchStorageArgs,
   FetchStorageResult<T>
 >;
 
 export function useFetchStorage<T>(
   args?: UseFetchStorageArgs,
   options?: UseFetchStorageOptions<T>
-) {
+): UseAsyncQueryResult<FetchStorageArgs, FetchStorageResult<T>> {
   return useAsyncQuery({
     key: "useFetchStorage",
     args,

@@ -2,7 +2,7 @@ import type {
   PrepareSendTransactionArgs,
   PrepareSendTransactionResult,
 } from "@wagmi/core";
-import type { QueryOptions, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
 import { prepareSendTransaction } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
 
@@ -17,7 +17,7 @@ export type UsePrepareSendTransactionOptions = QueryOptions<
 export function usePrepareSendTransaction(
   args?: UsePrepareSendTransactionArgs,
   options?: UsePrepareSendTransactionOptions
-) {
+): UseAsyncQueryResult<PrepareSendTransactionArgs, PrepareSendTransactionResult> {
   return useAsyncQuery({
     key: "prepareSendTransaction",
     asyncFn: prepareSendTransaction,
