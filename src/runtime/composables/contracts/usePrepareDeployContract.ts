@@ -48,17 +48,12 @@ export function usePrepareDeployContract(
         factory.getDeployTransaction(...args)
       );
 
-      const gasPrice = await signerRaw.getGasPrice();
-
       return {
         abi,
         bytecode,
         args,
         chainId,
-        request: {
-          ...request,
-          gasPrice,
-        },
+        request,
       };
     },
   });
