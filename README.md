@@ -7,13 +7,13 @@ Find and replace all on all files (CMD+SHIFT+F):
 - Description: My new Nuxt module
 -->
 
-# My Module
+# Nuxt Web3 Kit
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
 
-> My new Nuxt module
+> Web3 composables for Nuxt
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
 <!-- - [📖 &nbsp;Documentation](https://example.com) -->
@@ -21,36 +21,40 @@ Find and replace all on all files (CMD+SHIFT+F):
 ## Features
 
 <!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- 🚀 Composables for working with wallets, ENS, contracts, transactions, signing, etc.
+- 💼 Built-in wallet connectors for MetaMask, WalletConnect, Coinbase Wallet, and Injected
+- 🌀 Auto-refresh data on wallet, block, and network changes
+- 💾 Store files to IPFS
+- 🖳 Server-side authentication with EIP712 signatures
+- 🦄 TypeScript ready
+- 🖧 SSR friendly
 
 ## Quick Setup
 
-1. Add `my-module` dependency to your project
+1. Add `@zaifer/nuxt-web3kit` dependency to your project
 
 ```bash
 # Using pnpm
-pnpm add -D my-module
+pnpm add -D @zaifer/nuxt-web3kit
 
 # Using yarn
-yarn add --dev my-module
+yarn add --dev @zaifer/nuxt-web3kit
 
 # Using npm
-npm install --save-dev my-module
+npm install --save-dev @zaifer/nuxt-web3kit
 ```
 
-2. Add `my-module` to the `modules` section of `nuxt.config.ts`
+2. Add `@zaifer/nuxt-web3kit` to the `modules` section of `nuxt.config.ts`
 
 ```js
 export default defineNuxtConfig({
   modules: [
-    'my-module'
+    '@zaifer/nuxt-web3kit'
   ]
 })
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+That's it! You can now use Nuxt Web3 Kit in your Nuxt app ✨
 
 ## Development
 
