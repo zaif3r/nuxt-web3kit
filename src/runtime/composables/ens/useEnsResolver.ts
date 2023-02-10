@@ -15,7 +15,6 @@ export function useEnsResolver(
   options?: UseEnsResolverOptions
 ): UseAsyncQueryResult<FetchEnsResolverArgs, FetchEnsResolverResult> {
   return useAsyncQuery({
-    key: "useEnsResolver",
     asyncFn: fetchEnsResolver,
     args,
     options: {

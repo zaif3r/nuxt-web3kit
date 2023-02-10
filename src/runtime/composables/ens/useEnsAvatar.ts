@@ -15,7 +15,6 @@ export function useEnsAvatar(
   options?: UseEnsAvatarOptions
 ): UseAsyncQueryResult<FetchEnsAvatarArgs, FetchEnsAvatarResult> {
   return useAsyncQuery({
-    key: "useEnsAvatar",
     asyncFn: fetchEnsAvatar,
     args,
     options: {

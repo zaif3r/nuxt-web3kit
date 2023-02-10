@@ -15,7 +15,6 @@ export function useEnsName(
   options?: UseEnsNameOptions,
 ): UseAsyncQueryResult<FetchEnsNameArgs, FetchEnsNameResult> {
   return useAsyncQuery({
-    key: "useEnsName",
     asyncFn: fetchEnsName,
     args,
     options: {

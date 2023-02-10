@@ -15,7 +15,6 @@ export function useEnsAddress(
   options?: UsePrepareEnsAddressOptions
 ): UseAsyncQueryResult<FetchEnsAddressArgs, FetchEnsAddressResult> {
   return useAsyncQuery({
-    key: "useEnsAddress",
     asyncFn: fetchEnsAddress,
     args,
     options: {
