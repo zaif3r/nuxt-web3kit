@@ -1,7 +1,9 @@
 import type { FetchEnsAddressArgs, FetchEnsAddressResult } from "@wagmi/core";
-import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult } from "@zaifer/nuxt-query";
 import { fetchEnsAddress } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
+
+import type { UseQueryArgs } from "../../types/query";
 
 export type UsePrepareEnsAddressArgs = UseQueryArgs<FetchEnsAddressArgs>;
 
@@ -15,6 +17,7 @@ export function useEnsAddress(
   options?: UsePrepareEnsAddressOptions
 ): UseAsyncQueryResult<FetchEnsAddressArgs, FetchEnsAddressResult> {
   return useAsyncQuery({
+    key: args?.key ?? "useEnsAddress",
     asyncFn: fetchEnsAddress,
     args,
     options: {

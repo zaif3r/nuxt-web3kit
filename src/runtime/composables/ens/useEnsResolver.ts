@@ -1,7 +1,9 @@
 import type { FetchEnsResolverArgs, FetchEnsResolverResult } from "@wagmi/core";
-import type { QueryOptions, UseAsyncQueryResult, UseQueryArgs } from "@zaifer/nuxt-query";
+import type { QueryOptions, UseAsyncQueryResult } from "@zaifer/nuxt-query";
 import { fetchEnsResolver } from "@wagmi/core";
 import { useAsyncQuery } from "#imports";
+
+import type { UseQueryArgs } from "../../types/query";
 
 export type UseEnsResolverArgs = UseQueryArgs<FetchEnsResolverArgs>;
 
@@ -15,6 +17,7 @@ export function useEnsResolver(
   options?: UseEnsResolverOptions
 ): UseAsyncQueryResult<FetchEnsResolverArgs, FetchEnsResolverResult> {
   return useAsyncQuery({
+    key: args?.key ?? "useEnsResolver",
     asyncFn: fetchEnsResolver,
     args,
     options: {
