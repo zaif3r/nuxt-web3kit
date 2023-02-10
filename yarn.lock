@@ -2790,10 +2790,10 @@
     motion "10.15.5"
     qrcode "1.5.1"
 
-"@zaifer/nuxt-query@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@zaifer/nuxt-query/-/nuxt-query-1.0.2.tgz#1193957e25a8cc4daeb3d7d90fc06bd21ee5f170"
-  integrity sha512-/7ttj6naE5N6SIsdgI/Wu05/03dkcdlgLe/SI9hQSNdo/QK/vrAtj3peyRH8KCARg8KJPS2vlc7olR0I9CnM5w==
+"@zaifer/nuxt-query@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@zaifer/nuxt-query/-/nuxt-query-1.0.3.tgz#bab0e4def75f7ec5f0d1dad02fedf6623db5bf29"
+  integrity sha512-XzCDMtubxkt2HMnWq6lYj5HG0KVTkb/rjq8Ye3nRRuQMT2bCp4RA9UbZKzSeFKX6SdyM2QkQvCaa3tAJ/HpkMg==
   dependencies:
     "@nuxt/kit" "^3.1.1"
     "@vueuse/core" "^9.12.0"
